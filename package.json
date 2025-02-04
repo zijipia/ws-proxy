@@ -1,0 +1,40 @@
+{
+  "name": "ws-proxy",
+  "version": "1.0.0",
+  "description": "proxy WebSocket",
+  "main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"deploy": "node ./deploy.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"check": "prettier --ignore-path .gitignore --check .",
+		"format": "prettier --ignore-path .gitignore --write ."
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zijipia/ws-proxy.git"
+  },
+  "keywords": [
+    "WebSocket",
+    "proxy",
+    "ziji"
+  ],
+  "author": "zijipia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zijipia/ws-proxy/issues"
+  },
+  "homepage": "https://github.com/zijipia/ws-proxy#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "http-proxy": "^1.18.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+		"nodemon": "^3.1.0",
+		"prettier": "^3.3.2"
+	}
+}
