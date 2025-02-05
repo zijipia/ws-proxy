@@ -43,9 +43,10 @@ const wss = new WebSockets.Server({ server });
 
 wss.on("connection", (ws) => {
 	const wsc = new WebSockets(WS_TARGET);
-
+	let userid = null;
 	wsc.on("open", () => {
 		console.log("WebSocket connected to target server");
+		if (userid) wsc.send(JSON.stringify({ event: "GetVoice", userID: userid }));
 	});
 
 	wsc.on("message", (event) => {
@@ -61,6 +62,9 @@ wss.on("connection", (ws) => {
 	});
 
 	ws.on("message", (message) => {
+		const data = JSON.parse(message.data);
+		console.log(data);
+		if (data?.event === "GetVoice") userid = data?.userID;
 		if (wsc.readyState === WebSockets.OPEN) {
 			wsc.send(message);
 		} else {
