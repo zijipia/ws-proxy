@@ -40,29 +40,36 @@ server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 // );
 const WebSockets = require("ws");
 const wss = new WebSockets.Server({ server });
+
 wss.on("connection", (ws) => {
 	const wsc = new WebSockets(WS_TARGET);
-	wsc.onopen = () => {
-		console.log("WebSocket connected");
-	};
 
-	wsc.onmessage = (event) => {
+	wsc.on("open", () => {
+		console.log("WebSocket connected to target server");
+	});
+
+	wsc.on("message", (event) => {
 		ws.send(event);
-	};
+	});
 
-	wsc.onclose = () => {
-		console.log("WebSocket disconnected");
-	};
+	wsc.on("close", () => {
+		console.log("WebSocket connection to target server closed");
+	});
 
-	wsc.onerror = (error) => {
+	wsc.on("error", (error) => {
 		console.error("WebSocket error:", error);
-	};
+	});
 
-	ws.on("message", async (message) => {
-		wsc.send(message);
+	ws.on("message", (message) => {
+		if (wsc.readyState === WebSockets.OPEN) {
+			wsc.send(message);
+		} else {
+			console.warn("WebSocket is not open, message not sent.");
+		}
 	});
 
 	ws.on("close", () => {
 		console.log("[WebSocket] Client disconnected.");
+		wsc.close();
 	});
 });
