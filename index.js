@@ -50,7 +50,9 @@ wss.on("connection", (ws) => {
 	});
 
 	wsc.on("message", (event) => {
-		ws.send(event);
+		const data = JSON.parse(event);
+
+		ws.send(JSON.stringify(data));
 	});
 
 	wsc.on("close", () => {
@@ -63,7 +65,6 @@ wss.on("connection", (ws) => {
 
 	ws.on("message", (message) => {
 		const data = JSON.parse(message);
-		console.log(data);
 		if (data?.event === "GetVoice") userid = data?.userID;
 		if (wsc.readyState === WebSockets.OPEN) {
 			wsc.send(message);
