@@ -41,7 +41,7 @@ server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 const WebSockets = require("ws");
 const wss = new WebSockets.Server({ server });
 wss.on("connection", (ws) => {
-	const wsc = new WebSocket(WS_TARGET);
+	const wsc = new WebSockets(WS_TARGET);
 	wsc.onopen = () => {
 		console.log("WebSocket connected");
 	};
