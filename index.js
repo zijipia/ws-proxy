@@ -28,7 +28,6 @@ app.use(
 		target: API_TARGET,
 		changeOrigin: true,
 		logLevel: "debug",
-		pathRewrite: { "^/api": "" },
 	}),
 );
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
