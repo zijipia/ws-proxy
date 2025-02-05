@@ -23,20 +23,6 @@ app.use(
 
 // Proxy API requests
 app.use(
-	"/api",
-	createProxyMiddleware({
-		target: API_TARGET,
-		changeOrigin: true,
-		logLevel: "debug",
-		pathRewrite: { "^/api": "" },
-	}),
-);
-
-// app.get("/", (req, res) => {
-// 	res.send("WebSocket & API Proxy are running!");
-// });
-
-app.use(
 	"/",
 	createProxyMiddleware({
 		target: API_TARGET,
