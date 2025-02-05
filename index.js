@@ -62,7 +62,7 @@ wss.on("connection", (ws) => {
 	});
 
 	ws.on("message", (message) => {
-		const data = JSON.parse(message.data);
+		const data = JSON.parse(message);
 		console.log(data);
 		if (data?.event === "GetVoice") userid = data?.userID;
 		if (wsc.readyState === WebSockets.OPEN) {
